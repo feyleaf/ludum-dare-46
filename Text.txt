@@ -1,0 +1,49 @@
+game ideas
+
+the player will be a giant robot, sent to a desolate waste of a planet with the objective to "Keep It Alive"
+the game also includes interaction with the "Mother Ship" which will send the current state of the planet in order for the player to decide
+what objectives to pursue
+
+--the player
+--movement
+--communication with mothership (GUI)
+image over screen for ship
+text under it for instructions
+
+--the landscape
+--HUD
+--machines
+--living things
+--atmosphere health
+--land health
+--time
+--5g
+--air drops
+--collision lines on landscape
+
+landscape class
+-pan left
+-pan right
+-get greener
+-clear skies
+-hold collision lines
+
+player class
+-move left
+-move right
+
+scene class
+controller class
+--if we have an animation like placing/picking up, then it will ban the player control temporarily
+
+gui class
+hud class
+
+
+--arrow keys -> left & right
+--x location moving in one direction tests that direction's height difference in delta-x range of pixels
+
+chemical reactor
+trash incinerator/toxic waster disposal
+call down plants(planter?)
+solar panels
