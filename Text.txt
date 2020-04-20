@@ -47,3 +47,25 @@ chemical reactor
 trash incinerator/toxic waster disposal
 call down plants(planter?)
 solar panels
+
+once we have over .25 oxygen, it unlocks the solar panel
+oxygenator adds 0.01 oxygen per second per machine
+once we have over .25 energy, it unlocks the vaporizer
+solar panel adds 0.05 energy per second
+vapor uses 0.01 oxygen and 0.01 energy per second
+
+one we have over .25 water .75 energy, it unlocks the incinerator & toxic waste
+
+incinerator uses 0.03 oxygen per second
+lowers radiation by 0.01 per second
+uses 0.02 energy per second
+
+toxic uses 0.10 energy per second
+kills 0.10 radiation per second
+
+once we have 0 rads, the planter is unlocked
+planter uses 0.05 water per second
+adds 0.10 oxygen per second
+
+time spent at over .75 oxygen will ramp up sky color to blue
+time spent at over .75 water and under .25 rads will ramp up the land color to green

@@ -1,5 +1,7 @@
 #pragma once
 #include "Header.h"
+
+class RobotClass;
 class ControlClass
 {
 public:
@@ -7,11 +9,13 @@ public:
 	sf::Keyboard keys;
 	sf::Clock keyClock;
 	float keyTime;
+	bool looseArms;
+//	int cursor = 0;
 
 	void initialize();
 	bool handleQuit(sf::RenderWindow& win);
 	bool keyAvailable(sf::Keyboard::Key thisKey) { return (keys.isKeyPressed(thisKey) && keyClock.getElapsedTime().asSeconds() > keyTime); }
 	void safeKey() { keyClock.restart(); }
-	gameState handleKeys(gameState state);
+	int handleKeys(int state, RobotClass& robo);
 };
 

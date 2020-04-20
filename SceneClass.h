@@ -20,7 +20,6 @@ public:
 	sf::Texture bodyTEX;
 	sf::Texture robotTEX;
 	sf::Texture robotALT;
-	sf::Texture towerTEX;
 
 	sf::Texture boxTEX;
 
@@ -34,6 +33,10 @@ public:
 	sf::Texture oxygenatorTEX;
 	sf::Texture planterTEX;
 	sf::Texture vaporizerTEX;
+
+	sf::Texture spaceShipTEX;
+	sf::Sprite spaceShip;
+
 	//scene sprites
 	sf::Sprite sky;
 	sf::Sprite parallax;
@@ -49,8 +52,8 @@ public:
 	sf::Sprite robotBody;
 
 	//machine sprites
-	sf::Sprite tower;
 	sf::Sprite box;
+	sf::Sprite airDropSprite;
 
 	//GUI Sprites
 	sf::Sprite solarPanel;
@@ -59,6 +62,7 @@ public:
 	sf::Sprite oxygenator;
 	sf::Sprite planter;
 	sf::Sprite vaporizer;
+
 
 	//scene timers
 	sf::Clock bigTime;
@@ -73,10 +77,10 @@ public:
 
 	void initialize();
 	void cleanupLikeMarioSunshine();
+	void cleanupLikeScorpion();
+	void cleanupLikeSubZero();
 	void sceneMachineBridge(MachineClass& mach);
 
-	bool sceneUpdateMovement(bool isRight, RobotClass& robo);
-	void movementRobot(float sizeScale, RobotClass& robo);
 
 
 };

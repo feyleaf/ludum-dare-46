@@ -29,10 +29,12 @@ public:
 	sf::Vector2f BoxPivotLeft;
 	sf::Vector2f BoxPlacementRight;
 	sf::Vector2f BoxPlacementLeft;
+	sf::Vector2f AirDropPlacement;
 
 	bool isArmDrop;
 	bool isCarrying;
 	int boxInHands;
+	int seekingBox;
 
 	void initialize();
 };

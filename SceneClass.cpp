@@ -3,40 +3,43 @@
 
 void SceneClass::initialize()
 {
-	skyTEX.loadFromFile("sky-prelim.png");
-	parallaxTEX.loadFromFile("parallax-prelim.png");
-	landscapeTEX.loadFromFile("landscape-prelim.png");
-	robotTEX.loadFromFile("robot-prelim.png");
-	outerArmTEX.loadFromFile("robot-arm-outer.png");
-	outerArmExtendedTEX.loadFromFile("robot-arm-outer-ext.png");
-	innerArmTEX.loadFromFile("robot-arm-inner.png");
-	innerArmExtendedTEX.loadFromFile("robot-arm-inner-ext.png");
-	cabinTEX.loadFromFile("robot-cabin.png");
-	bodyTEX.loadFromFile("robot-body.png");
-	treadTEX.loadFromFile("robot-tread.png");
-	robotTEX.loadFromFile("robot-prelim.png");
-	robotALT.loadFromFile("robot-prelim2.png");
-	towerTEX.loadFromFile("tower-5g.png");
-	boxTEX.loadFromFile("box.png");
+	skyTEX.loadFromFile("assets/images/sky-prelim.png");
+	parallaxTEX.loadFromFile("assets/images/parallax-prelim.png");
+	landscapeTEX.loadFromFile("assets/images/landscape-prelim.png");
+	robotTEX.loadFromFile("assets/images/robot-prelim.png");
+	outerArmTEX.loadFromFile("assets/images/robot-arm-outer.png");
+	outerArmExtendedTEX.loadFromFile("assets/images/robot-arm-outer-ext.png");
+	innerArmTEX.loadFromFile("assets/images/robot-arm-inner.png");
+	innerArmExtendedTEX.loadFromFile("assets/images/robot-arm-inner-ext.png");
+	cabinTEX.loadFromFile("assets/images/robot-cabin.png");
+	bodyTEX.loadFromFile("assets/images/robot-body.png");
+	treadTEX.loadFromFile("assets/images/robot-tread.png");
+	robotTEX.loadFromFile("assets/images/robot-prelim.png");
+	robotALT.loadFromFile("assets/images/robot-prelim2.png");
+	//towerTEX.loadFromFile("tower-5g.png");
+	boxTEX.loadFromFile("assets/images/airdrop.png");
 
-	treadTEX1.loadFromFile("robot-tread1.png");
-	treadTEX2.loadFromFile("robot-tread2.png");
-	treadTEX3.loadFromFile("robot-tread3.png");
+	treadTEX1.loadFromFile("assets/images/robot-tread1.png");
+	treadTEX2.loadFromFile("assets/images/robot-tread2.png");
+	treadTEX3.loadFromFile("assets/images/robot-tread3.png");
 
-	solarPanelTEX.loadFromFile("solar-panel-icon.png");
-	trashCompactorTEX.loadFromFile("trashincinerator-icon.png");
-	toxicWasteTEX.loadFromFile("toxic-waste-icon.png");
-	oxygenatorTEX.loadFromFile("oxygenizer-icon.png");
-	planterTEX.loadFromFile("planter-icon.png");
-	vaporizerTEX.loadFromFile("vaporizer-icon.png");
+	solarPanelTEX.loadFromFile("assets/images/solar-panel-icon.png");
+	trashCompactorTEX.loadFromFile("assets/images/trashincinerator-icon.png");
+	toxicWasteTEX.loadFromFile("assets/images/toxic-waste-icon.png");
+	oxygenatorTEX.loadFromFile("assets/images/oxygenizer-icon.png");
+	planterTEX.loadFromFile("assets/images/planter-icon.png");
+	vaporizerTEX.loadFromFile("assets/images/vaporizer-icon.png");
+
+	spaceShipTEX.loadFromFile("assets/images/mothership.png");
+	spaceShip.setTexture(spaceShipTEX);
 
 	//scene sprites initialization
 	sky.setTexture(skyTEX);
 	sky.setPosition(0.0f, 0.0f);
 	parallax.setTexture(parallaxTEX);
-	parallax.setPosition(0.0f, 0.0f);
+	parallax.setPosition(-2550.0f, 0.0f);
 	landscape.setTexture(landscapeTEX);
-	landscape.setPosition(0.0f, 0.0f);
+	landscape.setPosition(-2550.0f, 0.0f);
 
 	//frame time
 	frameTime = 1.24f;
@@ -64,11 +67,12 @@ void SceneClass::initialize()
 	//robotTread.setOrigin(sf::Vector2f(87.0f, 164.0f));
 	//robotTread.setScale(sf::Vector2f(0.75f, 0.75f));
 	box.setTexture(boxTEX);
+	airDropSprite.setTexture(boxTEX);
 	//box.setOrigin(sf::Vector2f(-60.0f, -40.0f));
 
 	//machine sprites initialization
-	tower.setTexture(towerTEX);
-	tower.setPosition(0.0f, 0.0f);
+	//tower.setTexture(towerTEX);
+	//tower.setPosition(0.0f, 0.0f);
 
 	robotPos = sf::Vector2f(200.0f, 60.0f);
 
@@ -80,6 +84,14 @@ void SceneClass::initialize()
 	planter.setTexture(planterTEX);
 	vaporizer.setTexture(vaporizerTEX);
 	
+	breathingTime.restart();
+	sf::Vector2f myScale = sf::Vector2f(0.75f, 0.75f);
+
+	robotArmInner.setScale(myScale);
+	robotArmOuter.setScale(myScale);
+	robotBody.setScale(myScale);
+	robotCabin.setScale(myScale);
+	robotTread.setScale(myScale);
 
 
 
@@ -101,85 +113,41 @@ void SceneClass::cleanupLikeMarioSunshine()
 	}
 }
 
+void SceneClass::cleanupLikeScorpion()
+{
+	if (theColor.r > 1)
+	{
+		theColor.r = theColor.r - 1;
+		theColor.b = theColor.b - 1;
+		landscape.setColor(theColor);
+		parallax.setColor(theColor);
+	}
+}
+
+void SceneClass::cleanupLikeSubZero()
+{
+	if (skyColor.r > 1)
+	{
+		skyColor.r = skyColor.r - 1;
+		skyColor.g = skyColor.g - 1;
+		sky.setColor(skyColor);
+	}
+}
+
 //scene machine bridge
 //TODO: edit the boolean inputs passed as arguments by passing a reference to a machine and(?) a robot
 void SceneClass::sceneMachineBridge(MachineClass& mach)
 {
-	if (!mach.placedTower)
+	if (!mach.placed)
 	{
 		//initialize placement of tower machine
 		sf::Vector2f place;
-		mach.placedTower = true;
+		mach.placed = true;
 		mach.setPlacement(true, robotPos);
 		mach.position.x = 200.0f - landscape.getPosition().x;
 		mach.position.y = 00.0f;
-		tower.setPosition(mach.position);
+//		tower.setPosition(mach.position);
 	}
 }
 
 //SceneClass::movementRobot(0.75f, )
-void SceneClass::movementRobot(float sizeScale, RobotClass& robo) {
-	//robot update
-	float neg1 = -1;
-	float local = 0;
-	//local = -1950.0f
-	if (sizeScale > 0){
-		neg1 = -1;
-		local = 0;
-	}
-	else {
-		neg1 = 1;
-	}
-	float BreathTime = breathingTime.getElapsedTime().asSeconds() * 10;
-	robotArmOuter.setScale(sizeScale, abs(sizeScale));
-	robotArmInner.setScale(sizeScale, abs(sizeScale));
-	robotBody.setScale(sizeScale, abs(sizeScale));
-	robotCabin.setScale(sizeScale, abs(sizeScale));
-	robotTread.setScale(sizeScale, abs(sizeScale));
-
-	if (!robo.isArmDrop)
-	{
-		robotArmOuter.setRotation(2.5f*sinf(BreathTime));
-		robotArmInner.setRotation(cosf(BreathTime));
-		robotTread.setRotation(cosf(BreathTime));
-		box.setRotation(2.5f*sinf(BreathTime));
-	}
-	else
-	{
-		robotArmOuter.setRotation(-3.14159f*1.46f*neg1);
-		robotArmInner.setRotation(-3.14159f*1.46f*neg1);
-	}
-	//scene update
-	if (neg1 < 0.0f) {
-
-		if (landscape.getPosition().x > (-1950.0f))
-		{
-			sky.move(sf::Vector2f(neg1 * 0.005f, 0.0f));
-			parallax.move(sf::Vector2f(neg1 * 0.0150f, 0.0f));
-			landscape.move(sf::Vector2f(neg1 * 0.0250f, 0.0f));
-			tower.move(sf::Vector2f(neg1 * 0.025f, 0.0f));
-		}
-	}
-	else 
-	{
-		if (landscape.getPosition().x < (0.0f))
-		{
-			sky.move(sf::Vector2f(neg1 * 0.005f, 0.0f));
-			parallax.move(sf::Vector2f(neg1 * 0.0150f, 0.0f));
-			landscape.move(sf::Vector2f(neg1 * 0.0250f, 0.0f));
-			tower.move(sf::Vector2f(neg1 * 0.025f, 0.0f));
-		}
-	}
-}
-bool SceneClass::sceneUpdateMovement(bool isRight, RobotClass& robo)
-{
-	if (isRight)
-	{
-		movementRobot(0.75f, robo);
-	}
-	else
-	{
-		movementRobot(-0.75f, robo);
-	}
-	return isRight;
-}
